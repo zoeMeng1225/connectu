@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Avatar, Button, Paper, Grid, Typography, Container} from '@material-ui/core';
 import {GoogleLogin} from 'react-google-login';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
@@ -73,30 +72,27 @@ const Auth = () => {
   return(
     <Container component = "main" maxWidth = "xs" >
       <Paper className = {classes.paper} elevation= {3}>
-        <Avatar className = {classes.avatar}>
-          <LockOutlinedIcon/>
-        </Avatar>
-        <Typography variant = "h5">{isSignUp ? 'Sign Up' : 'Sign In'}</Typography>
+        <Typography variant = "h6">{isSignUp ? 'Sign Up' : 'Log into ConnectU'}</Typography>
         <form className = {classes.form} onSubmit = {handleSubmit}>
           <Grid container spacing={2}>
             {//&&: only isSignup , then ....
               isSignUp && (
                 <>
-                  <InputItem name = "firstName" label = "First Name" handleChange = {handleChange} autoFocus half />
-                  <InputItem name = "lastName" label = "Last Name" handleChange = {handleChange} half/>
+                  <InputItem name = "firstName" label = "First Name" handleChange = {handleChange} autoFocus half autoComplete/>
+                  <InputItem name = "lastName" label = "Last Name" handleChange = {handleChange} half autoComplete/>
                 </>
               )}
-              <InputItem name = "email" label = "email" handleChange = {handleChange} type = "email"/>
+              <InputItem name = "email" label = "email" handleChange = {handleChange} type = "email" autoComplete/>
 
               <InputItem 
-                name = "password" label = "Password" handleChange = {handleChange} type = {showPassWord ? "text" : "password"} handleShowPassword = {handleShowPassword}/>
+                name = "password" label = "Password" handleChange = {handleChange} type = {showPassWord ? "text" : "password"} autoComplete="password" handleShowPassword = {handleShowPassword} />
                 {
                   isSignUp && 
-                    <InputItem name = "comfirmPassword" label = "Comfirm Password" type = "password" handleChange = {handleChange}/>
+                    <InputItem name = "comfirmPassword" label = "Comfirm Password" type = "password" handleChange = {handleChange} autoComplete="comfirmPassword"/>
                 }
               </Grid>
             
-              <Button type = "submit" fullWidth variant = 'contained' color = "primary" className = {classes.submit}>
+              <Button type = "submit" fullWidth variant = 'contained' color = "secondary" className = {classes.submit}>
                 {
                   isSignUp ? 'Sign Up' : 'Login'
                 }
@@ -105,7 +101,7 @@ const Auth = () => {
                 !isSignUp &&  <GoogleLogin
                 clientId = "640400566021-foj5ntqeig4skcqjr4crf8qs990c0ft0.apps.googleusercontent.com"
                 render = {renderProps => (
-                  <Button className = {classes.googleButton} onClick = {renderProps.onClick} fullWidth color = "primary" disabled = {renderProps.disabled} startIcon = {<Icon/>} variant = "contained" > Sign in with Google </Button>
+                  <Button className = {classes.googleButton} onClick = {renderProps.onClick} fullWidth color = "secondary" disabled = {renderProps.disabled} startIcon = {<Icon/>} variant = "outlined" > Sign in with Google </Button>
                 )}
                 onSuccess = {googleSuccess}
                 onFailure = {googleFailure}

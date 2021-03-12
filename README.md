@@ -3,3 +3,7 @@ It allows user to post, edit, and interact with other people.
 
 Setup:
 run npm i && npm start for both client and server side to start the app
+
+
+A social Media application with MERN allows user to posts
+

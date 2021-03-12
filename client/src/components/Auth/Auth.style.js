@@ -6,17 +6,17 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing(2),
+    marginTop:'8em',
+    padding: theme.spacing(4),
+    boxSizing:'border-box'
   },
+
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
     },
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
+ 
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),

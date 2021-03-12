@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({baseURL : 'http://localhost:5000'});
+const API = axios.create({baseURL : 'https://connectu-backend.herokuapp.com/'});
 
 //help middleware run
 //it will be happened before all of requests. 

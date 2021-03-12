@@ -1,10 +1,11 @@
 import React, {useState, useEffect}from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { AppBar, Avatar, Typography, Button, Toolbar } from '@material-ui/core';
+import {Link, useHistory, useLocation } from 'react-router-dom';
+import {Avatar, Typography, Button,Grid } from '@material-ui/core';
 import {useDispatch} from 'react-redux';
 import decode from 'jwt-decode';
 import useStyle from './NavBar.style';
-import Logo from '../../assets/LOGO.png';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Logo from '../../assets/connectU-logo1.svg';
 
 
 const NavBar = () => {
@@ -14,6 +15,7 @@ const NavBar = () => {
   const history = useHistory();
   const location = useLocation();
 
+ 
   const logout = () => {
     disPatch({type: 'LOGOUT'})
     history.push('/auth'); // go back to login/ signup page
@@ -37,24 +39,32 @@ const NavBar = () => {
 
 
   return(
-    <AppBar className= {classes.appBar}  position = "static" color = "inherit">
-      <div className = {classes.brandContainer}>
-        <img className={classes.image} src={Logo} alt="icon" height="60" />
-        <Typography component = {Link} to = "/" className = {classes.heading} variant = "h4" align = "center">ConnectU</Typography>
-      </div>
-      
-      <Toolbar className = {classes.toolbar}>
+    <Grid className= {classes.appBar}  position = "static" color = "inherit" container >
+      <Grid className = {classes.brandContainer} item xs = {4}>
+        <Link to = "/"><img className={classes.image} src={Logo} alt="icon" height="60"/>
+       </Link>
+      </Grid>
+       
+      {
+        location.pathname !== '/auth' ? 
+        <Grid item xs = {7}>
         {user ? (
           <div className = {classes.profile}>
-            <Avatar className = {classes.avater} alt = {user.result.name} src = {user.result.name}>{user.result.name.charAt(0)}</Avatar>
-            <Typography className = {classes.userName} variant = "h6">{user.result.name}</Typography>
-            <Button variant = "contained" className = {classes.logout} color = "secondary" onClick = {logout}>Log out</Button>
+            <div className = {classes.profileFlex}>
+              <Avatar className = {classes.avater} alt = {user.result.name} src = {user.result.name}>{user.result.name.charAt(0)}</Avatar>
+              <Typography className = {classes.userName} variant = "h6">{user.result.name}</Typography>
+            </div>
+            <Button variant = "contained" className = {classes.logout} onClick = {logout}>Log out</Button>
           </div> )
-          : (
-            <Button component = {Link} to = "/auth" variant = "contained" color = "primary">Login</Button>
-          )}
-      </Toolbar>
-    </AppBar>
+          : null }
+      </Grid> 
+      : 
+      <Link to = "/" className = {classes.back}>
+        <ArrowBackIcon/>
+        <p className = {classes.backChild}>Back</p>       
+      </Link>
+      }
+    </Grid>
   )
 }
 
